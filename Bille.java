@@ -68,43 +68,43 @@ public class Bille {
 
     public void gererCollisions() {
         Terrain terrain = jeu.getTerrain();
-        int i = (int) Math.floor(x);
-        int j = (int) Math.floor(y);
+        int colonne = (int) Math.floor(x);
+        int ligne = (int) Math.floor(y);
         
         // vérifier les collisions avec les murs
         // collision avec mur gauche
-        if (x - rayon < i && i > 0) {
-            Case caseGauche = terrain.getCase(i-1, j);
+        if (x - rayon < colonne && colonne > 0) {
+            Case caseGauche = terrain.getCase(ligne, colonne-1);
             if (caseGauche != null && caseGauche instanceof CaseIntraversable && vx < 0) {
                 vx = -vx * 0.8; // Rebond avec perte d'énergie
-                x = i + rayon; // Corriger la position
+                x = colonne + rayon; // Corriger la position
             }
         }
         
         // collision avec mur droite
-        if (x + rayon > i + 1 && i < terrain.getLargeur() - 1) {
-            Case caseDroite = terrain.getCase(i+1, j);
+        if (x + rayon > colonne + 1 && colonne < terrain.getLargeur() - 1) {
+            Case caseDroite = terrain.getCase(ligne, colonne+1);
             if (caseDroite != null && caseDroite instanceof CaseIntraversable && vx > 0) {
-                vx = -vx * 0.8;
-                x = i + 1 - rayon;
+                vx = -vx * 0.8; //meme
+                x = colonne + 1 - rayon;//meme
             }
         }
         
         // Collision avec mur haut
-        if (y - rayon < j && j > 0) {
-            Case caseHaut = terrain.getCase(i, j-1);
+        if (y - rayon < ligne && ligne > 0) {
+            Case caseHaut = terrain.getCase(ligne-1, colonne);
             if (caseHaut != null && caseHaut instanceof CaseIntraversable && vy < 0) {
-                vy = -vy * 0.8;
-                y = j + rayon;
+                vy = -vy * 0.8;//meme
+                y = ligne + rayon;//meme
             }
         }
         
         // Collision avec mur bas
-        if (y + rayon > j + 1 && j < terrain.getHauteur() - 1) {
-            Case caseBas = terrain.getCase(i, j+1);
+        if (y + rayon > ligne + 1 && ligne < terrain.getHauteur() - 1) {
+            Case caseBas = terrain.getCase(ligne+1, colonne);
             if (caseBas != null && caseBas instanceof CaseIntraversable && vy > 0) {
-                vy = -vy * 0.8;
-                y = j + 1 - rayon;
+                vy = -vy * 0.8;//meme
+                y = ligne + 1 - rayon;//meme
             }
         }
         // verifier que la bille est bien dans les limites du terrain
